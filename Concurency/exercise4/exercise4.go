@@ -11,6 +11,8 @@ import (
 // numbers maintains a set of random numbers.
 var numbers []int
 
+var m sync.Mutex
+
 // init is called prior to main.
 func init() {
 	rand.Seed(time.Now().UnixNano())
@@ -47,7 +49,9 @@ func random(amount int) {
 
 	// Generate as many random numbers as specified.
 	for i := 0; i < amount; i++ {
+		m.Lock()
 		n := rand.Intn(100)
 		numbers = append(numbers, n)
+		m.Unlock()
 	}
 }
