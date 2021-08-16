@@ -14,16 +14,22 @@ func main() {
 	var wg sync.WaitGroup
 	wg.Add(2)
 
+	var m sync.Mutex
+
 	go func() {
 		for i := 0; i < 1000; i++ {
+			m.Lock()
 			scores["A"]++
+			m.Unlock()
 		}
 		wg.Done()
 	}()
 
 	go func() {
 		for i := 0; i < 1000; i++ {
+			m.Lock()
 			scores["B"]++
+			m.Unlock()
 		}
 		wg.Done()
 	}()
