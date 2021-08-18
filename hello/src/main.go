@@ -13,12 +13,11 @@ func main() {
 		c.HTML(http.StatusOK, "index.html", nil)
 	})
 
-	sample := r.Group("/html")
-	sample.GET("/sample", func(c *gin.Context) {
+	r.GET("/sample", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "html-sample2.html", nil)
 	})
 
 	r.Static("/public", "D:/goworkspace/src/hello/public")
 
-	r.Run(":3000")
+	r.Run(":8080")
 }
