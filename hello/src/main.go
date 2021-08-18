@@ -13,7 +13,8 @@ func main() {
 		c.HTML(http.StatusOK, "index.html", nil)
 	})
 
-	r.GET("/sample", func(c *gin.Context) {
+	sample := r.Group("/html")
+	sample.GET("/sample", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "html-sample2.html", nil)
 	})
 
