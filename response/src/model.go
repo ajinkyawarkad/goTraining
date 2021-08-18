@@ -18,8 +18,8 @@ var users = map[string]User{
 	},
 	"4": {
 		ID:        4,
-		FirstName: "Siddhesh",
-		LastName:  "Chaughule",
+		FirstName: "Ajinkya",
+		LastName:  "Warkad",
 	},
 }
 
