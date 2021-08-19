@@ -1,12 +1,29 @@
 package main
 
 import (
+	"context"
+	"fmt"
 	"net/http"
+	"os"
+	"reflect"
+	"time"
 
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func regRoutes() *gin.Engine {
+
+	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+	fmt.Println("ClientOptopm TYPE:", reflect.TypeOf(clientOptions), "\n")
+
+	client, err := mongo.Connect(context.TODO(), clientOptions)
+	if err != nil {
+		fmt.Println("Mongo.connect() ERROR: ", err)
+		os.Exit(1)
+	}
+
 	r := gin.Default()
 	r.LoadHTMLGlob("D:/goworkspace/src/response/templates/*.html")
 	r.GET("/", func(c *gin.Context) {
@@ -14,18 +31,65 @@ func regRoutes() *gin.Engine {
 	})
 
 	sample := r.Group("/user")
+
 	sample.GET("/adduser", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "user-form.html", nil)
 	})
 
-	sample.POST("/add", func(c *gin.Context) {
+	sample.GET("/login", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "login.html", nil)
+	})
+
+	sample.GET("/home", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "html-sample2.html", nil)
+	})
+
+	sample.POST("/login", func(c *gin.Context) {
 		var user User
 
 		c.Bind(&user)
 
-		user.ID = 8
-		users["8"] = user
+		user.ID = 3
+
+		users["3"] = user
 		c.IndentedJSON(http.StatusOK, users)
+
+		ctx, _ := context.WithTimeout(context.Background(), 15*time.Second)
+
+		col := client.Database("ajinkya_db").Collection("goTraining")
+
+		result, _ := col.InsertOne(ctx, user)
+
+		fmt.Println("result ", result)
+
+		newID := result.InsertedID
+		fmt.Println("InsertedOne(), newID", result)
+		fmt.Println("InsertedOne(), newID type:", reflect.TypeOf(newID))
+
+	})
+
+	sample.POST("/home", func(c *gin.Context) {
+		var user User
+
+		c.Bind(&user)
+
+		user.ID = 3
+
+		users["3"] = user
+		c.IndentedJSON(http.StatusOK, users)
+
+		ctx, _ := context.WithTimeout(context.Background(), 15*time.Second)
+
+		col := client.Database("ajinkya_db").Collection("goTraining")
+
+		result, _ := col.InsertOne(ctx, user)
+
+		fmt.Println("result ", result)
+
+		newID := result.InsertedID
+		fmt.Println("InsertedOne(), newID", result)
+		fmt.Println("InsertedOne(), newID type:", reflect.TypeOf(newID))
+
 	})
 
 	r.Static("/public", "D:goworkspace/src/response/public")

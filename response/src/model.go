@@ -5,21 +5,8 @@ var users = map[string]User{
 		ID:        1,
 		FirstName: "Jennifer",
 		LastName:  "Watson",
-	},
-	"2": {
-		ID:        2,
-		FirstName: "abc",
-		LastName:  "xyz",
-	},
-	"3": {
-		ID:        3,
-		FirstName: "pqr",
-		LastName:  "lmn",
-	},
-	"4": {
-		ID:        4,
-		FirstName: "Ajinkya",
-		LastName:  "Warkad",
+		Contact:   9021345424,
+		Address:   "Maharashtra,Pune",
 	},
 }
 
@@ -27,4 +14,7 @@ type User struct {
 	ID        uint
 	FirstName string `form:"fname"`
 	LastName  string `form:"lname"`
+	Address   string `form:"address"`
+	Contact   int    `form:"contact"`
+	Password  string `form:"password"`
 }
