@@ -10,6 +10,11 @@ var users = map[string]User{
 	},
 }
 
+type Creds struct {
+	username string `form:"uname"`
+	password string `from:"pass"`
+}
+
 type User struct {
 	ID        uint
 	FirstName string `form:"fname"`

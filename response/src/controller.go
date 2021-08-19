@@ -44,7 +44,7 @@ func regRoutes() *gin.Engine {
 		c.HTML(http.StatusOK, "html-sample2.html", nil)
 	})
 
-	sample.POST("/login", func(c *gin.Context) {
+	sample.POST("/", func(c *gin.Context) {
 		var user User
 
 		c.Bind(&user)
@@ -52,7 +52,7 @@ func regRoutes() *gin.Engine {
 		user.ID = 3
 
 		users["3"] = user
-		c.IndentedJSON(http.StatusOK, users)
+		c.IndentedJSON(http.StatusOK, user)
 
 		ctx, _ := context.WithTimeout(context.Background(), 15*time.Second)
 
@@ -69,26 +69,23 @@ func regRoutes() *gin.Engine {
 	})
 
 	sample.POST("/home", func(c *gin.Context) {
-		var user User
+		var cred Creds
 
-		c.Bind(&user)
+		c.Bind(&cred)
 
-		user.ID = 3
+		c.IndentedJSON(http.StatusOK, cred)
 
-		users["3"] = user
-		c.IndentedJSON(http.StatusOK, users)
+		// ctx, _ := context.WithTimeout(context.Background(), 15*time.Second)
 
-		ctx, _ := context.WithTimeout(context.Background(), 15*time.Second)
+		// col := client.Database("ajinkya_db").Collection("goTraining")
 
-		col := client.Database("ajinkya_db").Collection("goTraining")
+		// result, _ := col.InsertOne(ctx, user)
 
-		result, _ := col.InsertOne(ctx, user)
+		// fmt.Println("result ", result)
 
-		fmt.Println("result ", result)
-
-		newID := result.InsertedID
-		fmt.Println("InsertedOne(), newID", result)
-		fmt.Println("InsertedOne(), newID type:", reflect.TypeOf(newID))
+		// newID := result.InsertedID
+		fmt.Println("Cred", cred)
+		// fmt.Println("InsertedOne(), newID type:", reflect.TypeOf(newID))
 
 	})
 
