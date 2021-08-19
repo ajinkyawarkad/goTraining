@@ -46,16 +46,27 @@ var TimesOff = map[string][]TimeOff{
 			Amount:    8.,
 			StartDate: time.Date(2016, 1, 1, 0, 0, 0, 0, time.UTC),
 			Status:    "Taken",
-		}, {
+		},
+		{
 			Type:      "PTO",
 			Amount:    16.,
 			StartDate: time.Date(2016, 8, 16, 0, 0, 0, 0, time.UTC),
 			Status:    "Scheduled",
-		}, {
+		},
+		{
 			Type:      "PTO",
 			Amount:    16.,
 			StartDate: time.Date(2016, 12, 8, 0, 0, 0, 0, time.UTC),
 			Status:    "Requested",
+		},
+	},
+
+	"176158": []TimeOff{
+		{
+			Type:      "Holiday",
+			Amount:    8.,
+			StartDate: time.Date(2016, 1, 1, 0, 0, 0, 0, time.UTC),
+			Status:    "Taken",
 		},
 	},
 }

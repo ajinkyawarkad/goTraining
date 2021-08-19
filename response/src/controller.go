@@ -14,7 +14,7 @@ func regRoutes() *gin.Engine {
 	})
 
 	sample := r.Group("/user")
-	sample.GET("/add", func(c *gin.Context) {
+	sample.GET("/adduser", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "user-form.html", nil)
 	})
 

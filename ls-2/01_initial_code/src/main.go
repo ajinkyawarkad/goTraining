@@ -3,5 +3,5 @@ package main
 func main() {
 	r := registerRoutes()
 
-	r.Run(":3000")
+	r.Run(":8080")
 }
